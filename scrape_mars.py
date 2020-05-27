@@ -15,8 +15,7 @@ def init_browser():
 
 def scrape_info():
     browser = init_browser()
-    # create mars_data dict that we can insert into mongo
-
+   
     #Latest Mars News
     url = "https://mars.nasa.gov/news/"
     browser.visit(url)
@@ -37,7 +36,6 @@ def scrape_info():
 
 
     mars_weather_url = 'https://twitter.com/marswxreport?lang=en'
-    #  Retrieve page with the requests module
     response = requests.get(mars_weather_url)
     # Create BeautifulSoup object; parse with 'lxml'
     soup2 = BeautifulSoup(response.text, 'lxml')
@@ -51,14 +49,14 @@ def scrape_info():
         all_tweets = []
         text_p = li.find("p", class_="tweet-text")
         if text_p is not None:
-            all_tweets.append(text_p.get_text()) #from STACKOVERFLOW
+            all_tweets.append(text_p.get_text()) 
             for i in all_tweets: 
                 t = []
                 t.append(i)
                 if any("sol" in s for s in t):
                     weather_tweets.append(i)
 
-    #assign just the first *most current* one to variable 
+    #assign just the first one to variable 
     mars_current_weather = str(weather_tweets[0])
 
    
